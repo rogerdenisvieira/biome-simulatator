@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.js"></script>
-    <link rel="stylesheet" href="/static/style.css">
-    <script src="/static/simulation.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js" integrity="sha512-uaz5GpnQoE6t5echKlX8P52czvsIGgLPcvlzfvRubLZ1Hp8JemUDnbUiAahbVtPb+jUVrNETuXvAhDDF/N3M4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <script src="src/app.js"></script>
+
     <title>Biome Simulation</title>
 </head>
 <body>
-    <h1>Olá mundo</h1>
+    <!-- <h1>Olá mundo</h1> -->
     
     <div id="canvas-holder">
 <!-- canva goes here -->
     </div>
 
-    <input type="range" min="1" max="100" value="50">
+    <input id="slider-acc" type="range" min="1" max="10" value="5">
+    
 
 
 </body>

@@ -5,8 +5,12 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+
 // Setting up static directory
 app.use('/static', express.static(path.join(__dirname, 'static')));
+app.use('/src', express.static(path.join(__dirname, 'src')));
+
+
 
 
 // Route to return HTML file

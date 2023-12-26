@@ -4,6 +4,7 @@
   "description": "A simple biome simulation",
   "main": "dist/index.js",
   "scripts": {
+    "build": "cp -r ./assets/* ./dist && cp index.html ./dist",
     "start": "tsc && node dist/index.js",
     "lint": "eslint . --ext .ts",
     "test": "echo \"Error: no test specified\" && exit 1"

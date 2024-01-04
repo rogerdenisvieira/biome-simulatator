@@ -12,8 +12,6 @@ class Specimen(pygame.sprite.Sprite):
         self._speed = speed
 
         self.image = pygame.Surface([width,height])
-        # self.image.fill((0,255,0))
-        # self.image.set_colorkey((255,0,0))
 
         pygame.draw.rect(self.image, self._color, pygame.Rect(0,0,width, height))
 

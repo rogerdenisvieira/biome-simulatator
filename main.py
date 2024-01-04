@@ -10,7 +10,7 @@ from subject import Subject, Direction
 from specimen import Specimen
 
 WIDTH, HEIGHT = 640, 480
-FPS = 60
+FPS = 30
 
 
 class Game:

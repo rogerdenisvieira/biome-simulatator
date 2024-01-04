@@ -3,7 +3,7 @@ import random, pygame
 from typing import List
 from enum import Enum
 from pygame import Surface, Rect
-from health_bar import HealthBar
+from bar import Bar
 from utils import random_color
 
 
@@ -16,8 +16,8 @@ class Subject:
         self.__speed = speed
         self.__x = random.randint(0, window.get_width())
         self.__y = random.randint(0, window.get_height())
-        self.__color = random_color()
-        self.__healthbar = HealthBar(self.__health, (self.__x, self.__y), self.__window)
+        self.__original_color = self.__color = random_color()
+        self.__healthbar = Bar(self.__health, (self.__x, self.__y), self.__window)
         self.draw(window)
 
     def draw(self, window: Surface) -> None:
@@ -44,23 +44,28 @@ class Subject:
     #     print("drawing...")
     #     self.draw(window)
 
-    # def __create_collision(self) -> Rect:
-    #     return pygame.draw.rect(self.__window, color=(0, 0, 0), rect=(0,0,0,0))
-
     def get_collision(self) -> Rect:
         return self.__collision
 
+    def take_damage(self, damage: int) -> None:
+        if self.__health > 0:
+            self.__health -= damage
+        else:
+            self.__health = 0
+            self.__speed = 0
+
+        self.__color = (255, 0, 0)
+        self.__healthbar.set_value(damage)
+
     def collided(self, subjects):
         for s in subjects:
-
             is_collided = self.__collision.colliderect(s.get_collision())
 
             if is_collided and s.__name != self.__name:
-                logging.info(f'[{self.__name}:{self.__healthbar.get_health()}] collided to [{s.__name}:{s.__healthbar.get_health()}]')
-                self.__healthbar.decrease()
-                s.__healthbar.decrease()
-                self.__color = (255,0,0)
-
+                logging.info(f"[{self.__name}] collided to [{s.__name}]")
+                self.take_damage(10)
+            # else:
+                # self.__color = self.__original_color
 
 
 class Direction(Enum):

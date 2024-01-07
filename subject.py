@@ -8,9 +8,11 @@ from utils import random_color
 
 
 class Subject:
-    def __init__(self, name: str, size: int, health: int, speed: int, window: Surface):
+    def __init__(
+        self, name: str, radius: int, health: int, speed: int, window: Surface
+    ):
         self.__name = name
-        self.__size = size
+        self.__size = random.randint(10, 25)
         self.__window = window
         self.__health = health
         self.__speed = speed
@@ -21,7 +23,7 @@ class Subject:
         self.draw(window)
 
     def draw(self, window: Surface) -> None:
-        self.__healthbar.draw((self.__x, self.__y))
+        self.__healthbar.draw((self.__x, self.__y - self.__size))
 
         self.__collision = pygame.draw.circle(
             surface=window,
@@ -59,13 +61,16 @@ class Subject:
 
     def collided(self, subjects):
         for s in subjects:
-            is_collided = self.__collision.colliderect(s.get_collision())
+            self.__color = self.__original_color
 
-            if is_collided and s.__name != self.__name:
-                logging.info(f"[{self.__name}] collided to [{s.__name}]")
+            was_collided = pygame.Rect.colliderect(
+                self.get_collision(), s.get_collision()
+            )
+
+            if was_collided and s.__name != self.__name:
+                logging.info(f"[ {self.__name} ] collided to [ {s.__name} ]")
                 self.take_damage(10)
-            # else:
-                # self.__color = self.__original_color
+
 
 
 class Direction(Enum):

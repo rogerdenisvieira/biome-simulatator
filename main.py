@@ -9,7 +9,7 @@ from field import Field
 from subject import Subject, Direction
 from specimen import Specimen
 
-WIDTH, HEIGHT = 640, 480
+WIDTH, HEIGHT = 1280, 960
 FPS = 30
 
 
@@ -22,7 +22,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.subjects: List[Subject] = []
 
-        for i in range(0, 30):
+        for i in range(0, 50):
             self.subjects.append(Subject(f"Subject {i}", 10, 1000, random.randint(1,5), self.window))
 
     def run(self) -> None:

@@ -18,6 +18,7 @@ class Bar:
         self._x = pos[0]
         self._y = pos[1]
 
+
     def draw(self, pos: Tuple[int, int]) -> None:
         self._x = pos[0]
         self._y = pos[1]
@@ -48,11 +49,10 @@ class Bar:
             ),
         )
 
-        logging.info(f"ratio: {current_int_width}")
+
 
     def set_value(self, value: int):
-        if self.__value > 0:
-            self.__value -= value
+        self.__value = value
 
     def get_value(self) -> int:
         return self.__value

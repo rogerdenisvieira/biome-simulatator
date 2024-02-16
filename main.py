@@ -34,7 +34,7 @@ class Game:
 
             for s in self.subjects:
                 s.random_move(self.window)
-                s.collided(self.subjects)
+                s.detect_collision(self.subjects)
 
             pygame.display.update()
 

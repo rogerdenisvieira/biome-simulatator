@@ -36,13 +36,16 @@ class Subject:
             radius=self.__size,
         )
 
+        self.update()
+
+        pygame.draw.rect(self.__window, (0, 0, 0), self.__collision_box, -1)
+        self.__window.blit(self.__img, (self.__x, self.__y))
+
+    def update(self):
         if self.is_dead():
             self.__color = (0, 0, 0)
         else:
             self.__color = self.__original_color
-
-        pygame.draw.rect(self.__window, (0, 0, 0), self.__collision_box, -1)
-        self.__window.blit(self.__img, (self.__x, self.__y))
 
     def random_move(self, window: Surface) -> None:
         self.__x += random.randint(-self.__speed, self.__speed)
@@ -55,6 +58,12 @@ class Subject:
 
     #     print("drawing...")
     #     self.draw(window)
+
+    def is_inbounds(self) -> bool:
+        inBounds = pygame.Rect(
+            0, 0, self.__window.get_width(), self.__window.get_height()
+        ).collidepoint(self.__x, self.__y)
+        return inBounds
 
     def get_collision_box(self) -> Rect:
         return self.__collision_box
@@ -74,12 +83,17 @@ class Subject:
     def print(self) -> str:
         return f"{self.__name} | H: {self.__health} | S: {self.__speed} | C: [{self.__color}] [{self.__original_color}]"
 
-    def collided(self, subjects: Sequence[Self]):
+    def detect_collision(self, subjects: Sequence[Self]):
         # avoid unncessary iterations throught enemies
         if self.is_dead():
             return
 
+        if not self.is_inbounds():
+            self.__speed * -1
+
         self.__color = self.__original_color
+
+        # try using collidepoint from rect
 
         for subject in subjects:
             was_collided = False
@@ -97,6 +111,7 @@ class Subject:
 
             if was_collided:
                 logging.info(f"[ {self.print()} ] collided to [ {subject.print()} ]")
+                self.__speed * -1
                 self.take_damage(10)
                 self.__color = (255, 0, 0)
 
